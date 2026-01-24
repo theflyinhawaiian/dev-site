@@ -1,3 +1,5 @@
+import Starfield from './Starfield';
+
 const projects = [
   {
     title: 'Project One',
@@ -31,6 +33,7 @@ function App() {
       </nav>
 
       <header className="hero">
+        <Starfield />
         <h1>Hi, I'm Peter</h1>
         <p>Developer &amp; Creator</p>
       </header>

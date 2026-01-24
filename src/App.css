@@ -44,6 +44,7 @@ body {
 }
 
 .hero {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,16 +52,21 @@ body {
   height: 100vh;
   text-align: center;
   padding: 2rem;
+  background: #000;
+  overflow: hidden;
 }
 
 .hero h1 {
+  position: relative;
   font-size: 3rem;
   margin-bottom: 0.5rem;
+  color: #fff;
 }
 
 .hero p {
+  position: relative;
   font-size: 1.25rem;
-  color: #555;
+  color: #aaa;
 }
 
 .section {
