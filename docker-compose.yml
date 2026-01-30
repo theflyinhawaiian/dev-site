@@ -1,10 +1,43 @@
 services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
+      MYSQL_USER: devsite_user
+      MYSQL_PASSWORD: /run/secrets/msyql_password
+      MYSQL_DATABASE: devsite_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    secrets:
+      - mysql_root_password
+      - mysql_password
+
   app:
-    image: node:20-alpine
+    depends_on:
+      - mysql
+    build:
+      context: .
+      target: dev
     working_dir: /app
     volumes:
       - .:/app
       - /app/node_modules
     ports:
       - "5173:5173"
-    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      MYSQL_HOST: mysql:3306
+      MYSQL_USER: devsite_user
+      MYSQL_PASSWORD: /run/secrets/msyql_password
+    secrets:
+      - mysql_password
+
+secrets:
+  mysql_root_password:
+    file: secrets/msyql_root_password.txt
+  mysql_password:
+    file: secrets/mysql_password.txt
+
+volumes:
+  mysql_data:

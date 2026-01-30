@@ -1,13 +1,26 @@
-# Build stage
-FROM node:20-alpine AS build
+# ---------- base ----------
+FROM node:20-alpine AS base
 WORKDIR /app
-COPY package.json package-lock.json* ./
-RUN npm ci
+COPY package*.json ./
+
+# ---------- dev ----------
+FROM base AS dev
+RUN npm install
+COPY . .
+EXPOSE 5173
+CMD ["npm", "run", "dev", "--", "--host"]
+
+# ---------- build ----------
+FROM base AS build
+RUN npm install
 COPY . .
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# ---------- prod ----------
+FROM node:20-alpine AS prod
+WORKDIR /app
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package*.json ./
+RUN npm install --omit=dev
+EXPOSE 5173
+CMD ["node", "dist/index.js"]
