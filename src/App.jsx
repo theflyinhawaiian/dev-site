@@ -1,4 +1,5 @@
 import Starfield from './Starfield';
+import DbStatus from './DbStatus';
 
 const projects = [
   {
@@ -28,6 +29,7 @@ function App() {
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
+            <a href="#db-status">DB Status</a>
           </div>
         </div>
       </nav>
@@ -66,6 +68,10 @@ function App() {
         <a className="contact-link" href="mailto:hello@example.com">
           hello@example.com
         </a>
+      </section>
+
+      <section id="db-status" className="section">
+        <DbStatus />
       </section>
 
       <footer className="footer">

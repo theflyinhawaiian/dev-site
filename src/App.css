@@ -138,3 +138,74 @@ body {
   font-size: 0.9rem;
   border-top: 1px solid #eee;
 }
+
+.db-status {
+  max-width: 600px;
+}
+
+.db-status h2 {
+  margin-bottom: 1.5rem;
+}
+
+.status-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.status-indicator {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.status-indicator.connected {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-indicator.disconnected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.status-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.status-table td:first-child {
+  font-weight: 500;
+  color: #555;
+  width: 40%;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+.refresh-btn {
+  background: #0070f3;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.refresh-btn:hover {
+  background: #0060df;
+}

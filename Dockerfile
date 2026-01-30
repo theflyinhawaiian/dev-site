@@ -7,8 +7,8 @@ COPY package*.json ./
 FROM base AS dev
 RUN npm install
 COPY . .
-EXPOSE 5173
-CMD ["npm", "run", "dev", "--", "--host"]
+EXPOSE 5173 3001
+CMD ["npm", "run", "dev:full"]
 
 # ---------- build ----------
 FROM base AS build
