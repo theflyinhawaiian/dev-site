@@ -8,7 +8,7 @@ FROM base AS dev
 RUN npm install
 COPY . .
 EXPOSE 5173 3001
-CMD ["npm", "run", "dev:full"]
+CMD ["npm", "run", "all"]
 
 # ---------- build ----------
 FROM base AS build
@@ -22,5 +22,6 @@ WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package*.json ./
 RUN npm install --omit=dev
-EXPOSE 5173
-CMD ["node", "dist/index.js"]
+EXPOSE 5173 3001
+# TODO: make sure we don't need to run with any other settings
+CMD ["node", "run", "all"]

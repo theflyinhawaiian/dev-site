@@ -2,9 +2,9 @@ services:
   mysql:
     image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
       MYSQL_USER: devsite_user
-      MYSQL_PASSWORD: /run/secrets/msyql_password
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
       MYSQL_DATABASE: devsite_db
     volumes:
       - mysql_data:/var/lib/mysql
@@ -30,14 +30,14 @@ services:
     environment:
       MYSQL_HOST: mysql:3306
       MYSQL_USER: devsite_user
-      MYSQL_PASSWORD: /run/secrets/msyql_password
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
       MYSQL_DATABASE: devsite_db
     secrets:
       - mysql_password
 
 secrets:
   mysql_root_password:
-    file: secrets/msyql_root_password.txt
+    file: secrets/mysql_root_password.txt
   mysql_password:
     file: secrets/mysql_password.txt
 

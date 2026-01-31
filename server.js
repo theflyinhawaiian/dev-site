@@ -16,9 +16,12 @@ const dbConfig = {
   host: process.env.MYSQL_HOST?.split(':')[0] || 'mysql',
   port: parseInt(process.env.MYSQL_HOST?.split(':')[1]) || 3306,
   user: process.env.MYSQL_USER || 'devsite_user',
-  password: getSecret('/run/secrets/mysql_password', process.env.MYSQL_PASSWORD),
+  password: getSecret(process.env.MYSQL_PASSWORD_FILE, ''),
   database: process.env.MYSQL_DATABASE || 'devsite_db',
+  connectTimeout: 10000,
 };
+
+console.log('DB Config:', { ...dbConfig, password: '***' });
 
 app.get('/api/db-status', async (req, res) => {
   let connection;
@@ -57,6 +60,6 @@ app.get('/api/db-status', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`API server running on port ${PORT}`);
 });
