@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "server": "tsx server.ts",
-    "all": "tsx server.ts && vite --host",
+    "all": "concurrently \"tsx server.ts\" \"vite --host\"",
     "build": "vite build",
     "preview": "vite preview"
   },
