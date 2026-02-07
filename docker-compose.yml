@@ -1,11 +1,10 @@
 services:
   mysql:
-    image: mysql:8
+    build:
+      context: ./docker/mysql
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
-      MYSQL_USER: devsite_user
       MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
-      MYSQL_DATABASE: devsite_db
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
