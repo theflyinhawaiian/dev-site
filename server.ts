@@ -1,10 +1,18 @@
 import express, { Request, Response } from 'express';
-import { dbConfig, getDbStatus } from './db';
+import { getDbStatus, getProjects } from './db';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-console.log('DB Config:', { ...dbConfig, password: '***' });
+
+app.get('/api/projects', async (_req: Request, res: Response) => {
+  const result = await getProjects();
+  if (result.success){
+    res.json(result.data);
+  }else{
+    res.status(500).json(result.success);
+  }
+});
 
 app.get('/api/db-status', async (_req: Request, res: Response) => {
   const status = await getDbStatus();
