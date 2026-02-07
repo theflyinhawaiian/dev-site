@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server": "tsx server.ts",
-    "all": "concurrently \"tsx server.ts\" \"vite --host\"",
+    "server": "nodemon -e ts -x 'tsx server.ts' -L",
+    "all": "concurrently \"nodemon -e ts -x 'tsx server.ts' -L\" \"vite --host\"",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -23,6 +23,7 @@
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.2.0",
     "concurrently": "^8.2.2",
+    "nodemon": "^3.0.0",
     "tsx": "^4.7.0",
     "typescript": "^5.3.0",
     "vite": "^5.0.0"
