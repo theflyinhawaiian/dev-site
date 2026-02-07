@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server": "node server.js",
-    "all": "node server.js && vite --host",
+    "server": "tsx server.ts",
+    "all": "tsx server.ts && vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -17,8 +17,14 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.2.0",
     "concurrently": "^8.2.2",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0",
     "vite": "^5.0.0"
   }
 }

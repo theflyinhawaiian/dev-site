@@ -1,7 +1,13 @@
 import Starfield from './Starfield';
 import DbStatus from './DbStatus';
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  link: string;
+}
+
+const projects: Project[] = [
   {
     title: 'Project One',
     description: 'A brief description of your first project.',

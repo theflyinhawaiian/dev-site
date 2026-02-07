@@ -48,8 +48,9 @@ const fragmentShader = `
   }
 `;
 
-function createShader(gl, type, source) {
+function createShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null {
   const shader = gl.createShader(type);
+  if (!shader) return null;
   gl.shaderSource(shader, source);
   gl.compileShader(shader);
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
@@ -59,26 +60,35 @@ function createShader(gl, type, source) {
   return shader;
 }
 
-// goofy math done by hand to get the star colors to come out roughly in naturally-occurring frequency
-function generateHue(){
-  var r = Math.floor(Math.random() * 10000000);
-  if(r < 3) return 0;
-  if(r < 12003) return 1;
-  if(r < 73003) return 2;
-  if(r < 373003) return 3;
-  if(r < 1133003) return 4;
-  if(r < 2333003) return 5;
+function generateHue(): number {
+  const r = Math.floor(Math.random() * 10000000);
+  if (r < 3) return 0;
+  if (r < 12003) return 1;
+  if (r < 73003) return 2;
+  if (r < 373003) return 3;
+  if (r < 1133003) return 4;
+  if (r < 2333003) return 5;
 
   return 6;
 }
 
-function initGL(canvas) {
+interface GLContext {
+  gl: WebGLRenderingContext;
+  uTime: WebGLUniformLocation;
+  uResolution: WebGLUniformLocation;
+}
+
+function initGL(canvas: HTMLCanvasElement): GLContext | null {
   const gl = canvas.getContext('webgl', { alpha: true });
   if (!gl) return null;
 
   const vertShader = createShader(gl, gl.VERTEX_SHADER, vertexShader);
   const fragShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShader);
+  if (!vertShader || !fragShader) return null;
+
   const program = gl.createProgram();
+  if (!program) return null;
+
   gl.attachShader(program, vertShader);
   gl.attachShader(program, fragShader);
   gl.linkProgram(program);
@@ -90,7 +100,6 @@ function initGL(canvas) {
   const sizes = new Float32Array(STAR_COUNT);
   const brightness = new Float32Array(STAR_COUNT);
   const colorIndex = new Float32Array(STAR_COUNT);
-  var counts = [0, 0, 0, 0, 0, 0, 0];
 
   for (let i = 0; i < STAR_COUNT; i++) {
     positions[i * 3] = (Math.random() - 0.5) * 3;
@@ -98,12 +107,8 @@ function initGL(canvas) {
     positions[i * 3 + 2] = Math.random() * 2 - 1;
     sizes[i] = Math.random() * 2 + 0.5;
     brightness[i] = Math.random() * 0.7 + 0.3;
-    var color = generateHue();
-    colorIndex[i] = color;
-    counts[color]++;
+    colorIndex[i] = generateHue();
   }
-
-  console.log(counts);
 
   const posBuf = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
@@ -136,6 +141,8 @@ function initGL(canvas) {
   const uTime = gl.getUniformLocation(program, 'u_time');
   const uResolution = gl.getUniformLocation(program, 'u_resolution');
 
+  if (!uTime || !uResolution) return null;
+
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
@@ -143,13 +150,16 @@ function initGL(canvas) {
 }
 
 export default function Starfield() {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    let animId;
+    if (!canvas) return;
+
+    let animId: number;
 
     function resize() {
+      if (!canvas) return;
       canvas.width = canvas.clientWidth * window.devicePixelRatio;
       canvas.height = canvas.clientHeight * window.devicePixelRatio;
     }
@@ -162,6 +172,7 @@ export default function Starfield() {
     const start = performance.now();
 
     function frame() {
+      if (!canvas) return;
       resize();
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.clearColor(0, 0, 0, 1);

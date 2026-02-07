@@ -1,7 +1,20 @@
 import { useState, useEffect } from 'react';
 
+interface DbStatusData {
+  connected: boolean;
+  version?: string;
+  host?: string;
+  port?: number;
+  currentDatabase?: string;
+  uptime?: number;
+  tableCount?: number;
+  connectedThreads?: number;
+  timestamp?: string;
+  error?: string;
+}
+
 function DbStatus() {
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState<DbStatusData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,16 +25,17 @@ function DbStatus() {
     setLoading(true);
     try {
       const response = await fetch('/api/db-status');
-      const data = await response.json();
+      const data: DbStatusData = await response.json();
       setStatus(data);
     } catch (error) {
-      setStatus({ connected: false, error: error.message });
+      const err = error as Error;
+      setStatus({ connected: false, error: err.message });
     } finally {
       setLoading(false);
     }
   };
 
-  const formatUptime = (seconds) => {
+  const formatUptime = (seconds: number) => {
     const days = Math.floor(seconds / 86400);
     const hours = Math.floor((seconds % 86400) / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -36,6 +50,10 @@ function DbStatus() {
         <p>Loading...</p>
       </div>
     );
+  }
+
+  if (!status) {
+    return null;
   }
 
   return (
@@ -63,7 +81,7 @@ function DbStatus() {
               </tr>
               <tr>
                 <td>Uptime</td>
-                <td>{formatUptime(status.uptime)}</td>
+                <td>{status.uptime !== undefined ? formatUptime(status.uptime) : 'N/A'}</td>
               </tr>
               <tr>
                 <td>Tables</td>
@@ -75,7 +93,7 @@ function DbStatus() {
               </tr>
               <tr>
                 <td>Checked At</td>
-                <td>{new Date(status.timestamp).toLocaleString()}</td>
+                <td>{status.timestamp ? new Date(status.timestamp).toLocaleString() : 'N/A'}</td>
               </tr>
             </tbody>
           </table>

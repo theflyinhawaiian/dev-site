@@ -1,12 +1,12 @@
-import express from 'express';
-import mysql from 'mysql2/promise';
+import express, { Request, Response } from 'express';
+import mysql, { RowDataPacket } from 'mysql2/promise';
 import { readFileSync, existsSync } from 'fs';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-function getSecret(path, fallback) {
-  if (existsSync(path)) {
+function getSecret(path: string | undefined, fallback: string): string {
+  if (path && existsSync(path)) {
     return readFileSync(path, 'utf8').trim();
   }
   return fallback;
@@ -14,7 +14,7 @@ function getSecret(path, fallback) {
 
 const dbConfig = {
   host: process.env.MYSQL_HOST?.split(':')[0] || 'mysql',
-  port: parseInt(process.env.MYSQL_HOST?.split(':')[1]) || 3306,
+  port: parseInt(process.env.MYSQL_HOST?.split(':')[1] || '3306'),
   user: process.env.MYSQL_USER || 'devsite_user',
   password: getSecret(process.env.MYSQL_PASSWORD_FILE, ''),
   database: process.env.MYSQL_DATABASE || 'devsite_db',
@@ -23,16 +23,29 @@ const dbConfig = {
 
 console.log('DB Config:', { ...dbConfig, password: '***' });
 
-app.get('/api/db-status', async (req, res) => {
+interface VersionRow extends RowDataPacket {
+  version: string;
+}
+
+interface StatusRow extends RowDataPacket {
+  Variable_name: string;
+  Value: string;
+}
+
+interface DatabaseRow extends RowDataPacket {
+  current_db: string;
+}
+
+app.get('/api/db-status', async (_req: Request, res: Response) => {
   let connection;
   try {
     connection = await mysql.createConnection(dbConfig);
 
-    const [versionRows] = await connection.query('SELECT VERSION() as version');
-    const [uptimeRows] = await connection.query('SHOW STATUS LIKE "Uptime"');
-    const [dbRows] = await connection.query('SELECT DATABASE() as current_db');
-    const [tablesRows] = await connection.query('SHOW TABLES');
-    const [statusRows] = await connection.query('SHOW STATUS LIKE "Threads_connected"');
+    const [versionRows] = await connection.query<VersionRow[]>('SELECT VERSION() as version');
+    const [uptimeRows] = await connection.query<StatusRow[]>('SHOW STATUS LIKE "Uptime"');
+    const [dbRows] = await connection.query<DatabaseRow[]>('SELECT DATABASE() as current_db');
+    const [tablesRows] = await connection.query<RowDataPacket[]>('SHOW TABLES');
+    const [statusRows] = await connection.query<StatusRow[]>('SHOW STATUS LIKE "Threads_connected"');
 
     res.json({
       connected: true,
@@ -46,9 +59,10 @@ app.get('/api/db-status', async (req, res) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
+    const err = error as Error;
     res.status(500).json({
       connected: false,
-      error: error.message,
+      error: err.message,
       host: dbConfig.host,
       port: dbConfig.port,
       timestamp: new Date().toISOString(),
@@ -60,6 +74,6 @@ app.get('/api/db-status', async (req, res) => {
   }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`API server running on port ${PORT}`);
 });
