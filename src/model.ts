@@ -11,7 +11,7 @@ interface ProjectLink {
   link: string;
 }
 
-interface Tag {
+export interface Tag {
   slug: string;
   name: string;
 }

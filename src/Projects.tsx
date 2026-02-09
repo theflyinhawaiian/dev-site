@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Project } from './model';
+import Tag from './Tag';
 
 function DbStatus() {
   const [projects, setProjects] = useState<Project[] | null>(null);
@@ -34,10 +35,33 @@ function DbStatus() {
   }
 
   return (
-    <div className="projects">
-      <h2>Projects</h2>
-      
-    </div>
+    <>
+      {projects.map((project) => (
+        <div className="project-card" key={project.name}>
+          <h3>{project.name}</h3>
+          <p>{project.description}</p>
+          <div className="project-tags">
+            {project.tags?.map((tag) => (
+              <Tag key={tag.slug} slug={tag.slug} name={tag.name} />
+            ))}
+          </div>
+          <div className="project-links">
+            {project.projectLinks
+              .filter((link) => link.link && link.title)
+              .map((link) => (
+                <a key={link.title} href={link.link} target="_blank" rel="noreferrer">
+                  {link.title}
+                </a>
+              ))}
+            {project.hostedLink?.link && (
+              <a href={project.hostedLink.link} target="_blank" rel="noreferrer">
+                {project.hostedLink.title}
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </>
   );
 }
 

@@ -209,3 +209,24 @@ body {
 .refresh-btn:hover {
   background: #0060df;
 }
+
+.project-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #f0f0f0;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.tag img {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.4rem;
+}
