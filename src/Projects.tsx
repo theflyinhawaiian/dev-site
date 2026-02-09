@@ -26,12 +26,7 @@ function DbStatus() {
   };
 
   if (loading) {
-    return (
-      <div className="projects">
-        <h2>Projects</h2>
-        <p>Loading...</p>
-      </div>
-    );
+    return <p>Loading...</p>;
   }
 
   if (!projects) {

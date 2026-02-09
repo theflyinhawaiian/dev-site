@@ -17,19 +17,6 @@ export const dbConfig = {
   connectTimeout: 10000,
 };
 
-interface VersionRow extends RowDataPacket {
-  version: string;
-}
-
-interface StatusRow extends RowDataPacket {
-  Variable_name: string;
-  Value: string;
-}
-
-interface DatabaseRow extends RowDataPacket {
-  current_db: string;
-}
-
 interface ProjectRaw extends RowDataPacket {
   name: string;
   description: string;
@@ -68,19 +55,6 @@ export type Result<T> =
 | { success: true; data: T }
 | { success: false }
 
-export interface DbStatus {
-  connected: boolean;
-  version?: string;
-  uptime?: number;
-  currentDatabase?: string;
-  tableCount?: number;
-  connectedThreads?: number;
-  host: string;
-  port: number;
-  timestamp: string;
-  error?: string;
-}
-
 export async function getConnection(): Promise<Connection> {
   return mysql.createConnection(dbConfig);
 }
@@ -111,7 +85,7 @@ export async function getProjects(): Promise<Result<Project[]>> {
       description: x.description,
       projectLinks: [{ title: x.projectLink1Title, link: x.projectLink1 }, { title: x.projectLink2Title, link: x.projectLink2 }],
       hostedLink: { title: x.hostedLinkTitle, link: x.hostedLink },
-      tags: mapping[pt.projectName]
+      tags: mapping[x.name]
     }));
 
     return {
@@ -122,44 +96,6 @@ export async function getProjects(): Promise<Result<Project[]>> {
     const err = error as Error;
     return {
       success: false
-    };
-  } finally {
-    if (connection) {
-      await connection.end();
-    }
-  }
-}
-
-export async function getDbStatus(): Promise<DbStatus> {
-  let connection;
-  try {
-    connection = await getConnection();
-
-    const [versionRows] = await connection.query<VersionRow[]>('SELECT VERSION() as version');
-    const [uptimeRows] = await connection.query<StatusRow[]>('SHOW STATUS LIKE "Uptime"');
-    const [dbRows] = await connection.query<DatabaseRow[]>('SELECT DATABASE() as current_db');
-    const [tablesRows] = await connection.query<RowDataPacket[]>('SHOW TABLES');
-    const [statusRows] = await connection.query<StatusRow[]>('SHOW STATUS LIKE "Threads_connected"');
-
-    return {
-      connected: true,
-      version: versionRows[0].version,
-      uptime: parseInt(uptimeRows[0].Value),
-      currentDatabase: dbRows[0].current_db,
-      tableCount: tablesRows.length,
-      connectedThreads: parseInt(statusRows[0].Value),
-      host: dbConfig.host,
-      port: dbConfig.port,
-      timestamp: new Date().toISOString(),
-    };
-  } catch (error) {
-    const err = error as Error;
-    return {
-      connected: false,
-      error: err.message,
-      host: dbConfig.host,
-      port: dbConfig.port,
-      timestamp: new Date().toISOString(),
     };
   } finally {
     if (connection) {

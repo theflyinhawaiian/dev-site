@@ -1,30 +1,5 @@
 import Starfield from './Starfield';
-import DbStatus from './DbStatus';
 import Projects from './Projects';
-
-interface Project {
-  title: string;
-  description: string;
-  link: string;
-}
-
-const projects: Project[] = [
-  {
-    title: 'Project One',
-    description: 'A brief description of your first project.',
-    link: '#',
-  },
-  {
-    title: 'Project Two',
-    description: 'A brief description of your second project.',
-    link: '#',
-  },
-  {
-    title: 'Project Three',
-    description: 'A brief description of your third project.',
-    link: '#',
-  },
-];
 
 function App() {
   return (
@@ -69,10 +44,6 @@ function App() {
         <a className="contact-link" href="mailto:hello@example.com">
           hello@example.com
         </a>
-      </section>
-
-      <section id="db-status" className="section">
-        <DbStatus />
       </section>
 
       <footer className="footer">
