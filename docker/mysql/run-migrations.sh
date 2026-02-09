@@ -53,8 +53,12 @@ for migration in "$MIGRATIONS_DIR"/*.sql; do
         if [ "$already_applied" -eq 0 ]; then
             echo "Applying migration: $filename"
             mysql_run < "$migration"
-            mysql_run -e "INSERT INTO $MIGRATIONS_TABLE (filename) VALUES ('$filename');"
-            echo "Migration applied: $filename"
+            if [ $? -eq 0 ]; then
+                mysql_run -e "INSERT INTO $MIGRATIONS_TABLE (filename) VALUES ('$filename');"
+                echo "Migration applied: $filename"
+            else
+                echo "Migration $filename failed"
+            fi
         else
             echo "Skipping already applied migration: $filename"
         fi
