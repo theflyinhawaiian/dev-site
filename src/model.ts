@@ -16,3 +16,11 @@ export interface Tag {
   name: string;
 }
 
+export interface Job {
+  companyName: string;
+  title: string;
+  description: string;
+  logoFilename: string;
+  tags: Tag[];
+}
+

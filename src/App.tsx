@@ -1,5 +1,6 @@
 import Starfield from './Starfield';
 import Projects from './Projects';
+import Jobs from './Jobs';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
           <div className="nav-links">
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
+            <a href="#jobs">Experience</a>
             <a href="#contact">Contact</a>
             <a href="#db-status">DB Status</a>
           </div>
@@ -35,6 +37,13 @@ function App() {
         <h2>Projects</h2>
         <div className="project-grid">
           <Projects />
+        </div>
+      </section>
+
+      <section id="jobs" className="section">
+        <h2>Experience</h2>
+        <div className="jobs-grid">
+          <Jobs />
         </div>
       </section>
 
