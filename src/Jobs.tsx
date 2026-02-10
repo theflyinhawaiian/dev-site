@@ -37,30 +37,30 @@ function Jobs() {
     <>
       {jobs.map((job) => (
         <div className="job-card" key={job.companyName}>
-          <div className="job-header">
-            {job.logoFilename && (
+          {job.logoFilename && (
+            <div className="job-logo-container">
               <img
                 className="job-logo"
                 src={`/logos/${job.logoFilename}`}
                 alt={job.companyName}
               />
-            )}
-            <div>
-              <h3>{job.title}</h3>
-              <span className="job-company">{job.companyName}</span>
             </div>
-          </div>
-          <p>{job.description}</p>
-          {job.tags?.length > 0 && (
-            <>
-              <h4 className="tags-header">Technologies Used</h4>
-              <div className="project-tags">
-                {job.tags.map((tag) => (
-                  <Tag key={tag.slug} slug={tag.slug} name={tag.name} />
-                ))}
-              </div>
-            </>
           )}
+          <div className="job-content">
+            <h3>{job.title}</h3>
+            <span className="job-company">{job.companyName}</span>
+            <p>{job.description}</p>
+            {job.tags?.length > 0 && (
+              <>
+                <h4 className="tags-header">Technologies Used</h4>
+                <div className="project-tags">
+                  {job.tags.map((tag) => (
+                    <Tag key={tag.slug} slug={tag.slug} name={tag.name} />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       ))}
     </>
