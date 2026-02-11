@@ -1,10 +1,14 @@
 import Starfield from './Starfield';
 import Projects from './Projects';
 import Jobs from './Jobs';
+import { useThemeStore } from './themeStore';
+import DarkModeBtn from './DarkModeBtn';
 
 function App() {
+  const { isDark, toggle } = useThemeStore();
+
   return (
-    <div className="app">
+    <div className={`app${isDark ? ' dark' : ''}`}>
       <nav className="nav">
         <div className="nav-content">
           <span className="logo">Portfolio</span>
@@ -13,8 +17,8 @@ function App() {
             <a href="#projects">Projects</a>
             <a href="#jobs">Experience</a>
             <a href="#contact">Contact</a>
-            <a href="#db-status">DB Status</a>
           </div>
+          <DarkModeBtn onClick={toggle} />
         </div>
       </nav>
 

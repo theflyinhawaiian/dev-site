@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Job } from './model';
 import Tag from './Tag';
+import { useThemeStore } from './themeStore';
 
 function Jobs() {
   const [jobs, setJobs] = useState<Job[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const isDark = useThemeStore((s) => s.isDark);
 
   useEffect(() => {
     fetchJobs();
@@ -41,8 +43,15 @@ function Jobs() {
             <div className="job-logo-container">
               <img
                 className="job-logo"
-                src={`/logos/${job.logoFilename}`}
+                src={`/logos/${isDark ? job.logoFilename.replace(/\.png$/, '-dark.png') : job.logoFilename}`}
                 alt={job.companyName}
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  const fallback = `/logos/${job.logoFilename}`;
+                  if (target.src !== window.location.origin + fallback) {
+                    target.src = fallback;
+                  }
+                }}
               />
             </div>
           )}
