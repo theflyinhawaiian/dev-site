@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Job } from './model';
-import Tag from './Tag';
-import { useThemeStore } from './themeStore';
+import { Job } from '@/model';
+import Tag from '@components/Tag';
+import { useThemeStore } from '@hooks/themeStore';
 
 function Jobs() {
   const [jobs, setJobs] = useState<Job[] | null>(null);

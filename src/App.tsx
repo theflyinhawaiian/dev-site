@@ -1,8 +1,8 @@
-import Starfield from './Starfield';
-import Projects from './Projects';
-import Jobs from './Jobs';
-import { useThemeStore } from './themeStore';
-import DarkModeBtn from './DarkModeBtn';
+import Starfield from '@components/Starfield';
+import Projects from '@components/Projects';
+import Jobs from '@components/Jobs';
+import { useThemeStore } from '@hooks/themeStore';
+import DarkModeBtn from '@components/DarkModeBtn';
 
 function App() {
   const { isDark, toggle } = useThemeStore();
@@ -11,11 +11,10 @@ function App() {
     <div className={`app${isDark ? ' dark' : ''}`}>
       <nav className="nav">
         <div className="nav-content">
-          <span className="logo">Portfolio</span>
           <div className="nav-links">
             <a href="#about">About</a>
-            <a href="#projects">Projects</a>
             <a href="#jobs">Experience</a>
+            <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
           </div>
           <DarkModeBtn onClick={toggle} />
@@ -37,17 +36,17 @@ function App() {
         </p>
       </section>
 
-      <section id="projects" className="section">
-        <h2>Projects</h2>
-        <div className="project-grid">
-          <Projects />
-        </div>
-      </section>
-
       <section id="jobs" className="section">
         <h2>Experience</h2>
         <div className="jobs-grid">
           <Jobs />
+        </div>
+      </section>
+
+      <section id="projects" className="section">
+        <h2>Projects</h2>
+        <div className="project-grid">
+          <Projects />
         </div>
       </section>
 

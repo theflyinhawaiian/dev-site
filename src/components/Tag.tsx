@@ -1,4 +1,4 @@
-import { Tag as TagModel } from './model';
+import { Tag as TagModel } from '@/model';
 
 function Tag({ name, slug }: TagModel) {
   return (

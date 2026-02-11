@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Project } from './model';
-import Tag from './Tag';
+import { Project } from '@/model';
+import Tag from '@components/Tag';
 
 function DbStatus() {
   const [projects, setProjects] = useState<Project[] | null>(null);
