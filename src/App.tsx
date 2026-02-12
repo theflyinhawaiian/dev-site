@@ -3,6 +3,7 @@ import Projects from '@components/Projects';
 import Jobs from '@components/Jobs';
 import { useThemeStore } from '@hooks/themeStore';
 import DarkModeBtn from '@components/DarkModeBtn';
+import Calendly from '@components/Calendly';
 
 function App() {
   const { isDark, toggle } = useThemeStore();
@@ -12,10 +13,10 @@ function App() {
       <nav className="nav">
         <div className="nav-content">
           <div className="nav-links">
-            <a href="#about">About</a>
-            <a href="#jobs">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+            <a className="header" href="#about">About</a>
+            <a className="header" href="#jobs">Experience</a>
+            <a className="header" href="#projects">Projects</a>
+            <a className="header" href="#contact">Contact</a>
           </div>
           <DarkModeBtn isDark={isDark} onClick={toggle} />
         </div>
@@ -52,10 +53,8 @@ function App() {
 
       <section id="contact" className="section">
         <h2>Contact</h2>
-        <p>Interested in working together? Reach out.</p>
-        <a className="contact-link" href="mailto:hello@example.com">
-          hello@example.com
-        </a>
+        <p>Interested in working together? Wanna compliment me on my awesomeness? Reach out! I'm always open to new connections. Fill out the calendly form below and let's have a chat!</p>
+        <Calendly />
       </section>
 
       <footer className="footer">
