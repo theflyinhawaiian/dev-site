@@ -17,7 +17,7 @@ function App() {
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
           </div>
-          <DarkModeBtn onClick={toggle} />
+          <DarkModeBtn isDark={isDark} onClick={toggle} />
         </div>
       </nav>
 

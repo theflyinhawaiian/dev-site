@@ -1,6 +1,6 @@
-export default function DarkModeBtn( props: { onClick: () => void }) {
+export default function DarkModeBtn( props: { isDark: boolean, onClick: () => void }) {
     return <>
-      <input type="checkbox" id="darkmode-btn" onClick={props.onClick} />
+      <input type="checkbox" id="darkmode-btn" defaultChecked={props.isDark} onClick={props.onClick} />
       <label htmlFor="darkmode-btn">
         <svg version="1.1" className="sun" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 496 496">
             <rect x="152.994" y="58.921" transform="matrix(0.3827 0.9239 -0.9239 0.3827 168.6176 -118.5145)" width="40.001" height="16"/>
