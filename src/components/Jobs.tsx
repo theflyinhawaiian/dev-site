@@ -57,7 +57,6 @@ function Jobs() {
           )}
           <div className="job-content">
             <h3>{job.title}</h3>
-            <span className="job-company">{job.companyName}</span>
             <p>{job.description}</p>
             {job.tags?.length > 0 && (
               <>
