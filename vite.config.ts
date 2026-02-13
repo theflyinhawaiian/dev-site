@@ -22,5 +22,10 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    allowedHosts: [
+      "pmullins.dev",
+      "www.pmullins.dev",
+      "localhost"
+    ]
   },
 });
