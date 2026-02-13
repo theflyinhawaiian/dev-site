@@ -1,10 +1,10 @@
 import { Tag as TagModel } from '@/model';
 
-function Tag({ name, slug }: TagModel) {
+function Tag({ name, slug, postfix }: TagModel) {
   return (
     <span className="tag">
       <img
-        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}/${slug}-original.svg`}
+        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}/${slug}-${postfix}.svg`}
         alt={name}
       />
       {name}

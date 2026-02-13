@@ -1,0 +1,2 @@
+ALTER TABLE tags
+ADD COLUMN postfix VARCHAR(50);

@@ -42,7 +42,7 @@ function DbStatus() {
           <p>{project.description}</p>
           <div className="project-tags">
             {project.tags?.map((tag) => (
-              <Tag key={tag.slug} slug={tag.slug} name={tag.name} />
+              <Tag key={tag.slug} slug={tag.slug} name={tag.name} postfix={tag.postfix} />
             ))}
           </div>
           <div className="project-links">

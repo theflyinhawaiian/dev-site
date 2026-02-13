@@ -63,7 +63,7 @@ function Jobs() {
                 <h4 className="tags-header">Technologies Used</h4>
                 <div className="project-tags">
                   {job.tags.map((tag) => (
-                    <Tag key={tag.slug} slug={tag.slug} name={tag.name} />
+                    <Tag key={tag.slug} slug={tag.slug} name={tag.name} postfix={tag.postfix} />
                   ))}
                 </div>
               </>

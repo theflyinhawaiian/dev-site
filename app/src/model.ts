@@ -14,6 +14,7 @@ interface ProjectLink {
 export interface Tag {
   slug: string;
   name: string;
+  postfix: string;
 }
 
 export interface Job {

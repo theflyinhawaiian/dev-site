@@ -31,6 +31,8 @@ interface ProjectRaw extends RowDataPacket {
 interface Association extends RowDataPacket {
   projectName: string;
   tagName: string;
+  tagSlug: string;
+  postfix: string;
 }
 
 interface ProjectLink {
@@ -41,6 +43,7 @@ interface ProjectLink {
 interface Tag {
   slug: string;
   name: string;
+  postfix: string;
 }
 
 export interface Project {
@@ -66,6 +69,7 @@ interface JobAssociation extends RowDataPacket {
   companyName: string;
   tagName: string;
   tagSlug: string;
+  tagPostfix: string;
 }
 
 export interface Job {
@@ -86,14 +90,14 @@ export async function getProjects(): Promise<Result<Project[]>> {
     connection = await getConnection();
 
     const projectTags : Association[] = (await connection.query<Association[]>(
-      `SELECT projects.name AS projectName, tags.name AS tagName, tags.slug as tagSlug 
+      `SELECT projects.name AS projectName, tags.name AS tagName, tags.slug as tagSlug, tags.postfix as tagPostfix 
        FROM projects 
        INNER JOIN project_tags ON projects.project_id = project_tags.project_id 
        INNER JOIN tags ON tags.tag_id = project_tags.tag_id;`))[0];
 
     const mapping : Record <string, Tag[]>= {};
     for(var pt of projectTags){
-      const tag = { name: pt.tagName, slug: pt.tagSlug };
+      const tag = { name: pt.tagName, slug: pt.tagSlug, postfix: pt.tagPostfix };
       if(!mapping[pt.projectName]){
         mapping[pt.projectName] = [tag]
       }else{
@@ -131,14 +135,14 @@ export async function getJobs(): Promise<Result<Job[]>> {
     connection = await getConnection();
 
     const jobTags : JobAssociation[] = (await connection.query<JobAssociation[]>(
-      `SELECT jobs.company_name AS companyName, tags.name AS tagName, tags.slug as tagSlug
+      `SELECT jobs.company_name AS companyName, tags.name AS tagName, tags.slug as tagSlug, tags.postfix as tagPostfix
        FROM jobs
        INNER JOIN job_tags ON jobs.job_id = job_tags.job_id
        INNER JOIN tags ON tags.tag_id = job_tags.tag_id;`))[0];
 
     const mapping : Record<string, Tag[]> = {};
     for(var jt of jobTags){
-      const tag = { name: jt.tagName, slug: jt.tagSlug };
+      const tag = { name: jt.tagName, slug: jt.tagSlug, postfix: jt.tagPostfix };
       if(!mapping[jt.companyName]){
         mapping[jt.companyName] = [tag]
       }else{
