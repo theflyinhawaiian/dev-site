@@ -18,7 +18,17 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:3001',
+        target: 'http://api:3001',
+        changeOrigin: true,
+      },
+    },
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://api:3001',
         changeOrigin: true,
       },
     },
@@ -27,5 +37,5 @@ export default defineConfig({
       "www.pmullins.dev",
       "localhost"
     ]
-  },
+  }
 });
