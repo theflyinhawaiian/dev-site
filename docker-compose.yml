@@ -14,21 +14,20 @@ services:
       - mysql_password
 
   app:
+    network_mode: "host"
     depends_on:
       - mysql
     build:
       context: .
-      target: dev
+      target: prod
+      network: host
     working_dir: /app
     volumes:
       - .:/app
       - /app/node_modules
       - /app/secrets
-    ports:
-      - "5173:5173"
-      - "3001:3001"
     environment:
-      MYSQL_HOST: mysql:3306
+      MYSQL_HOST: localhost:3306
       MYSQL_USER: devsite_user
       MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
       MYSQL_DATABASE: devsite_db
