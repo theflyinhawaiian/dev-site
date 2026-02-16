@@ -1,8 +1,10 @@
+import styles from "@/styles/components/DarkModeBtn.module.css"
+
 export default function DarkModeBtn( props: { isDark: boolean, onClick: () => void }) {
     return <>
-      <input type="checkbox" id="darkmode-btn" defaultChecked={props.isDark} onClick={props.onClick} />
+      <input type="checkbox" id="darkmode-btn" className={styles['btn-input']} onClick={props.onClick} />
       <label htmlFor="darkmode-btn">
-        <svg version="1.1" className="sun" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 496 496">
+        <svg version="1.1" className={styles.sun} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 496 496">
             <rect x="152.994" y="58.921" transform="matrix(0.3827 0.9239 -0.9239 0.3827 168.6176 -118.5145)" width="40.001" height="16"/>
             <rect x="46.9" y="164.979" transform="matrix(0.9239 0.3827 -0.3827 0.9239 71.29 -12.4346)" width="40.001" height="16"/>
             <rect x="46.947" y="315.048" transform="matrix(0.9239 -0.3827 0.3827 0.9239 -118.531 50.2116)" width="40.001" height="16"/>
@@ -16,15 +18,15 @@ export default function DarkModeBtn( props: { isDark: boolean, onClick: () => vo
             <rect x="240" width="16" height="72"/>
             <rect x="62.097" y="90.096" transform="matrix(0.7071 0.7071 -0.7071 0.7071 98.0963 -40.6334)" width="71.999" height="16"/>
             <rect y="240" width="72" height="16"/>
-            
+
               <rect x="90.091" y="361.915" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 -113.9157 748.643)" width="16" height="71.999"/>
             <rect x="240" y="424" width="16" height="72"/>
-            
+
               <rect x="361.881" y="389.915" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 397.8562 960.6281)" width="71.999" height="16"/>
             <rect x="424" y="240" width="72" height="16"/>
             <rect x="389.911" y="62.091" transform="matrix(0.7071 0.7071 -0.7071 0.7071 185.9067 -252.6357)" width="16" height="71.999"/>
         </svg>
-        <svg version="1.1" className="moon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+        <svg version="1.1" className={styles.moon} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
         viewBox="0 0 49.739 49.739">
           <path d="M25.068,48.889c-9.173,0-18.017-5.06-22.396-13.804C-3.373,23.008,1.164,8.467,13.003,1.979l2.061-1.129l-0.615,2.268
             c-1.479,5.459-0.899,11.25,1.633,16.306c2.75,5.493,7.476,9.587,13.305,11.526c5.831,1.939,12.065,1.492,17.559-1.258v0

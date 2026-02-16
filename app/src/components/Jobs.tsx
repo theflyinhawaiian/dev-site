@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Job } from '@/model';
 import Tag from '@components/Tag';
 import { useThemeStore } from '@hooks/themeStore';
+import styles from '@/styles/components/Jobs.module.css';
 
 function Jobs() {
   const [jobs, setJobs] = useState<Job[] | null>(null);
@@ -38,11 +39,11 @@ function Jobs() {
   return (
     <>
       {jobs.map((job) => (
-        <div className="job-card" key={job.companyName}>
+        <div className={styles['job-card']} key={job.companyName}>
           {job.logoFilename && (
-            <div className="job-logo-container">
+            <div className={styles['job-logo-container']}>
               <img
-                className="job-logo"
+                className={styles['job-logo']}
                 src={`/logos/${isDark ? job.logoFilename.replace(/\.png$/, '-dark.png') : job.logoFilename}`}
                 alt={job.companyName}
                 onError={(e) => {
@@ -55,13 +56,13 @@ function Jobs() {
               />
             </div>
           )}
-          <div className="job-content">
+          <div className={styles['job-content']}>
             <h3>{job.title}</h3>
             <p>{job.description}</p>
             {job.tags?.length > 0 && (
               <>
-                <h4 className="tags-header">Technologies Used</h4>
-                <div className="project-tags">
+                <h4 className={styles['tags-header']}>Technologies Used</h4>
+                <div className={styles['project-tags']}>
                   {job.tags.map((tag) => (
                     <Tag key={tag.slug} slug={tag.slug} name={tag.name} postfix={tag.postfix} />
                   ))}

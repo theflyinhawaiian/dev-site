@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Project } from '@/model';
 import Tag from '@components/Tag';
+import styles from '@/styles/components/Projects.module.css';
 
 function DbStatus() {
   const [projects, setProjects] = useState<Project[] | null>(null);
@@ -37,15 +38,15 @@ function DbStatus() {
   return (
     <>
       {projects.map((project) => (
-        <div className="project-card" key={project.name}>
+        <div className={styles['project-card']} key={project.name}>
           <h3>{project.name}</h3>
           <p>{project.description}</p>
-          <div className="project-tags">
+          <div className={styles['project-tags']}>
             {project.tags?.map((tag) => (
               <Tag key={tag.slug} slug={tag.slug} name={tag.name} postfix={tag.postfix} />
             ))}
           </div>
-          <div className="project-links">
+          <div className={styles['project-links']}>
             {project.projectLinks
               .filter((link) => link.link && link.title)
               .map((link) => (
