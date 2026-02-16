@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "server": "tsx --watch server.ts",
+    "server": "tsx watch server.ts",
     "build": "vite build"
   },
   "dependencies": {

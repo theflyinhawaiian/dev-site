@@ -8,6 +8,7 @@ FROM base AS dev
 RUN npm install
 COPY . .
 EXPOSE 3001
+ENV CHOKIDAR_USEPOLLING=1
 CMD ["npm", "run", "server"]
 
 # ---------- build ----------
