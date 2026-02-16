@@ -20,12 +20,12 @@ export const dbConfig = {
 interface ProjectRaw extends RowDataPacket {
   name: string;
   description: string;
-  projectLink1: string;
-  projectLink1Title: string;
-  projectLink2: string;
-  projectLink2Title: string;
-  hostedLink: string;
-  hostedLinkTitle: string;
+  project_link1: string;
+  project_link1_title: string;
+  project_link2: string;
+  project_link2_title: string;
+  hosted_link: string;
+  hosted_link_title: string;
 }
 
 interface Association extends RowDataPacket {
@@ -108,8 +108,8 @@ export async function getProjects(): Promise<Result<Project[]>> {
     const projects : Project[] = (await connection.query<ProjectRaw[]>("SELECT * FROM projects;"))[0].map(x => ({
       name: x.name,
       description: x.description,
-      projectLinks: [{ title: x.projectLink1Title, link: x.projectLink1 }, { title: x.projectLink2Title, link: x.projectLink2 }],
-      hostedLink: { title: x.hostedLinkTitle, link: x.hostedLink },
+      projectLinks: [{ title: x.project_link1_title, link: x.project_link1 }, { title: x.project_link2_title, link: x.project_link2 }],
+      hostedLink: { title: x.hosted_link_title, link: x.hosted_link },
       tags: mapping[x.name]
     }));
 

@@ -41,11 +41,16 @@ function DbStatus() {
         <div className={styles['project-card']} key={project.name}>
           <h3>{project.name}</h3>
           <p>{project.description}</p>
-          <div className={styles['project-tags']}>
-            {project.tags?.map((tag) => (
-              <Tag key={tag.slug} slug={tag.slug} name={tag.name} postfix={tag.postfix} />
-            ))}
-          </div>
+          {project.tags?.length > 0 && (
+            <>
+              <h4 className="tags-header">Technologies Used</h4>
+                <div className={styles['project-tags']}>
+                  {project.tags?.map((tag) => (
+                    <Tag key={tag.slug} slug={tag.slug} name={tag.name} postfix={tag.postfix} />
+                  ))}
+                </div>
+            </>
+          )}
           <div className={styles['project-links']}>
             {project.projectLinks
               .filter((link) => link.link && link.title)
