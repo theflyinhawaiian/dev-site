@@ -54,7 +54,7 @@ function App() {
 
       <section id="contact" className={styles.section}>
         <h2>Contact</h2>
-        <p>Interested in working together? Wanna compliment me on my awesomeness? Reach out! I'm always open to new connections. Fill out the calendly form below and let's have a chat!</p>
+        <p>Interested in working together? Appreciate my vibe? Reach out and connect! I'm always open to new connections. Fill out the calendly form below and let's have a chat!</p>
         <Calendly />
       </section>
 

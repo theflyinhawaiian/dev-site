@@ -51,20 +51,20 @@ function DbStatus() {
                 </div>
             </>
           )}
-          <div className={styles['project-links']}>
-            {project.projectLinks
-              .filter((link) => link.link && link.title)
-              .map((link) => (
-                <a key={link.title} href={link.link} target="_blank" rel="noreferrer">
-                  {link.title}
-                </a>
-              ))}
-            {project.hostedLink?.link && (
-              <a href={project.hostedLink.link} target="_blank" rel="noreferrer">
-                {project.hostedLink.title}
-              </a>
-            )}
-          </div>
+          {project.projectLinks?.some((link) => link.link && link.title) && (
+            <>
+              <h4>Project Links</h4>
+              <div className={styles['project-links']}>
+                {project.projectLinks
+                  .filter((link) => link.link && link.title)
+                  .map((link) => (
+                    <a key={link.title} href={link.link} target="_blank" rel="noreferrer">
+                      {link.title}
+                    </a>
+                  ))}
+              </div>
+            </>
+          )}
         </div>
       ))}
     </>
