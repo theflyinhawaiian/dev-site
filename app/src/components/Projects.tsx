@@ -18,7 +18,6 @@ function DbStatus() {
       const data: Project[] = await response.json();
       if(response !== null){
         setProjects(data);
-        console.log(data);
       }
     } catch (error) {
       setProjects(null);

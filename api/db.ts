@@ -18,6 +18,7 @@ export const dbConfig = {
 };
 
 interface ProjectRaw extends RowDataPacket {
+  project_id: number;
   name: string;
   description: string;
   project_link1: string;
@@ -58,6 +59,7 @@ export type Result<T> =
 | { success: false }
 
 interface JobRaw extends RowDataPacket {
+  job_id: number;
   company_name: string;
   title: string;
   description: string;
@@ -164,6 +166,45 @@ export async function getJobs(): Promise<Result<Job[]>> {
     return {
       success: false
     };
+  } finally {
+    if (connection) {
+      await connection.end();
+    }
+  }
+}
+
+export async function getJob(id: number): Promise<Result<Job>> {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const jobs = (await connection.query<JobRaw[]>(
+      "SELECT * FROM jobs WHERE job_id = ?;", [id]))[0];
+
+    if (jobs.length === 0) {
+      return { success: false };
+    }
+
+    const x = jobs[0];
+
+    const jobTags: JobAssociation[] = (await connection.query<JobAssociation[]>(
+      `SELECT tags.name AS tagName, tags.slug AS tagSlug, tags.postfix AS tagPostfix
+       FROM job_tags
+       INNER JOIN tags ON tags.tag_id = job_tags.tag_id
+       WHERE job_tags.job_id = ?;`, [x.job_id]))[0];
+
+    return {
+      success: true,
+      data: {
+        companyName: x.company_name,
+        title: x.title,
+        description: x.description,
+        logoFilename: x.logo_filename,
+        tags: jobTags.map(t => ({ name: t.tagName, slug: t.tagSlug, postfix: t.tagPostfix }))
+      }
+    };
+  } catch (error) {
+    return { success: false };
   } finally {
     if (connection) {
       await connection.end();

@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Job } from '@/model';
 import Tag from '@components/Tag';
+import JobModal from '@components/JobModal';
 import { useThemeStore } from '@hooks/themeStore';
 import styles from '@/styles/components/Jobs.module.css';
 
 function Jobs() {
   const [jobs, setJobs] = useState<Job[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const isDark = useThemeStore((s) => s.isDark);
 
   useEffect(() => {
@@ -38,6 +40,14 @@ function Jobs() {
 
   return (
     <>
+      {selectedJob && (
+        <JobModal
+          job={selectedJob}
+          logoSrc={`/logos/${isDark ? selectedJob.logoFilename.replace(/\.png$/, '-dark.png') : selectedJob.logoFilename}`}
+          logoFallback={`/logos/${selectedJob.logoFilename}`}
+          onClose={() => setSelectedJob(null)}
+        />
+      )}
       {jobs.map((job) => (
         <div className={styles['job-card']} key={job.companyName}>
           {job.logoFilename && (
@@ -69,7 +79,7 @@ function Jobs() {
                 </div>
               </>
             )}
-            <a className={styles['read-more']} href={`#job-${job.companyName}`}>Read more</a>
+            <a className={styles['read-more']} href="#" onClick={(e) => { e.preventDefault(); setSelectedJob(job); }}>Read more</a>
           </div>
         </div>
       ))}
