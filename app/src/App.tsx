@@ -6,6 +6,7 @@ import DarkModeBtn from '@components/DarkModeBtn';
 import Calendly from '@components/Calendly';
 import HeroText from '@components/HeroText';
 import HamburgerMenu from '@components/HamburgerMenu';
+import About from '@components/About';
 import styles from '@/styles/components/App.module.css';
 import heroStyles from '@/styles/components/Hero.module.css';
 
@@ -33,8 +34,7 @@ function App() {
       </header>
 
       <section id="about" className={styles.section}>
-        <h2>About Me</h2>
-        <p>I’m a software engineer who enjoys solving challenging problems and is particularly fascinated by the intersection of software and human experience, from both UX and engineering perspectives. I have an unquenchable thirst for learning new patterns, technologies, and frameworks, and I enjoy sharing that knowledge with others.</p>
+        <About />
       </section>
 
       <section id="jobs" className={styles.section}>
@@ -53,7 +53,7 @@ function App() {
 
       <section id="contact" className={styles.section}>
         <h2>Contact</h2>
-        <p>Interested in working together? Appreciate my vibe? Reach out and connect! I'm always open to new connections. Fill out the calendly form below and let's have a chat!</p>
+        <p>Interested in working together? Appreciate my vibe? Wanna hang out? Hit me up! I always welcome new connections. Fill out the calendly form below and let's have a chat!</p>
         <Calendly />
       </section>
 

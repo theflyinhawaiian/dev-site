@@ -1,0 +1,10 @@
+.about p {
+  font-size: 1.1rem;
+  color: var(--text-tertiary);
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.about p:last-child {
+  margin-bottom: 0;
+}

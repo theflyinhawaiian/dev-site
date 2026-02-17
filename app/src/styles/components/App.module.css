@@ -55,6 +55,32 @@ a.header:hover::after {
   }
 }
 
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 2rem;
+  background: var(--hero-bg);
+  overflow: hidden;
+}
+
+.hero h1 {
+  position: relative;
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+  color: var(--hero-text);
+}
+
+.hero p {
+  position: relative;
+  font-size: 1.5rem;
+  color: var(--hero-subtext);
+}
+
 .section {
   max-width: 900px;
   margin: 0 auto;
