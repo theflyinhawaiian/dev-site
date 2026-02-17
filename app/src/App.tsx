@@ -4,6 +4,8 @@ import Jobs from '@components/Jobs';
 import { useThemeStore } from '@hooks/themeStore';
 import DarkModeBtn from '@components/DarkModeBtn';
 import Calendly from '@components/Calendly';
+import HeroText from '@components/HeroText';
+import HamburgerMenu from '@components/HamburgerMenu';
 import styles from '@/styles/components/App.module.css';
 
 function App() {
@@ -19,14 +21,14 @@ function App() {
             <a className={styles.header} href="#projects">Projects</a>
             <a className={styles.header} href="#contact">Contact</a>
           </div>
+          <HamburgerMenu />
           <DarkModeBtn isDark={isDark} onClick={toggle} />
         </div>
       </nav>
 
       <header className={styles.hero}>
         <Starfield />
-        <h1>Hi, I'm Peter</h1>
-        <p>Developer &amp; Creator</p>
+        <HeroText />
       </header>
 
       <section id="about" className={styles.section}>

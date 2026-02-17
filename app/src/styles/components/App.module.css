@@ -49,6 +49,12 @@ a.header:hover::after {
   color: var(--text);
 }
 
+@media (max-width: 650px) {
+  .nav-links {
+    display: none;
+  }
+}
+
 .hero {
   position: relative;
   display: flex;
@@ -93,8 +99,8 @@ a.header:hover::after {
 }
 
 .project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
   margin-top: 1rem;
 }
@@ -104,6 +110,7 @@ a.header:hover::after {
   grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-top: 1rem;
+  container-type: inline-size;
 }
 
 .contact-link {

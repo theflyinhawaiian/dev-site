@@ -58,10 +58,10 @@ function Jobs() {
           )}
           <div className={styles['job-content']}>
             <h3>{job.title}</h3>
-            <p>{job.description}</p>
+            <p className={styles['job-description']}>{job.description}</p>
             {job.tags?.length > 0 && (
               <>
-                <h4 className={styles['tags-header']}>Technologies Used</h4>
+                <h4>Technologies Used</h4>
                 <div className={styles['project-tags']}>
                   {job.tags.map((tag) => (
                     <Tag key={tag.slug} slug={tag.slug} name={tag.name} postfix={tag.postfix} />
@@ -69,6 +69,7 @@ function Jobs() {
                 </div>
               </>
             )}
+            <a className={styles['read-more']} href={`#job-${job.companyName}`}>Read more</a>
           </div>
         </div>
       ))}

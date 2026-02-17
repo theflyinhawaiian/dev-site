@@ -1,0 +1,67 @@
+.hamburger {
+  display: none;
+  position: relative;
+}
+
+.toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+
+.toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.toggle.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.toggle.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.75rem;
+  background: var(--nav-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 200;
+}
+
+.dropdown a {
+  display: block;
+  padding: 0.6rem 1.25rem;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.dropdown a:hover {
+  color: var(--text);
+  background: var(--card-bg);
+}
+
+@media (max-width: 650px) {
+  .hamburger {
+    display: block;
+  }
+}

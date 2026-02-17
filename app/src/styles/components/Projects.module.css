@@ -3,6 +3,7 @@
   border-radius: 8px;
   padding: 1.5rem;
   background: var(--card-bg);
+  width: 100%;
 }
 
 .project-card h3 {
@@ -25,6 +26,11 @@
   text-decoration: underline;
 }
 
+.project-card h4 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
 .project-tags {
   display: flex;
   gap: 0.5rem;
@@ -33,6 +39,6 @@
 
 .project-links {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  flex-wrap: wrap;
 }

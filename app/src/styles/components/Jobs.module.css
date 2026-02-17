@@ -40,10 +40,8 @@
   margin-bottom: 1rem;
 }
 
-.tags-header {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+.job-card h4 {
+  margin-top: 1.25rem;
   margin-bottom: 0.5rem;
 }
 
@@ -51,4 +49,41 @@
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+}
+
+.read-more {
+  display: none;
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
+@container (max-width: 810px) {
+  .job-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .job-description {
+    display: none;
+  }
+
+  .job-card h4 {
+    margin-top: 0.75rem;
+  }
+
+  .project-tags {
+    justify-content: center;
+  }
+
+  .read-more {
+    display: block;
+    margin-top: 1rem;
+    text-align: right;
+  }
 }
