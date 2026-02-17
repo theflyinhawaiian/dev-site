@@ -2,7 +2,6 @@ export interface Project {
   name: string;
   description: string;
   projectLinks: ProjectLink[];
-  hostedLink?: ProjectLink;
   tags: Tag[];
 }
 

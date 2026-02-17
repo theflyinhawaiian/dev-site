@@ -25,7 +25,7 @@ interface ProjectRaw extends RowDataPacket {
   project_link2: string;
   project_link2_title: string;
   hosted_link: string;
-  hosted_link_title: string;
+  hosted_title: string;
 }
 
 interface Association extends RowDataPacket {
@@ -50,7 +50,6 @@ export interface Project {
   name: string;
   description: string;
   projectLinks: ProjectLink[];
-  hostedLink?: ProjectLink;
   tags: Tag[];
 }
 
@@ -108,8 +107,7 @@ export async function getProjects(): Promise<Result<Project[]>> {
     const projects : Project[] = (await connection.query<ProjectRaw[]>("SELECT * FROM projects;"))[0].map(x => ({
       name: x.name,
       description: x.description,
-      projectLinks: [{ title: x.project_link1_title, link: x.project_link1 }, { title: x.project_link2_title, link: x.project_link2 }],
-      hostedLink: { title: x.hosted_link_title, link: x.hosted_link },
+      projectLinks: [{ title: x.project_link1_title, link: x.project_link1 }, { title: x.project_link2_title, link: x.project_link2 }, { title: x.hosted_title, link: x.hosted_link }],
       tags: mapping[x.name]
     }));
 
