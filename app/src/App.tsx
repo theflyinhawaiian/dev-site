@@ -7,6 +7,7 @@ import Calendly from '@components/Calendly';
 import HeroText from '@components/HeroText';
 import HamburgerMenu from '@components/HamburgerMenu';
 import styles from '@/styles/components/App.module.css';
+import heroStyles from '@/styles/components/Hero.module.css';
 
 function App() {
   const { isDark, toggle } = useThemeStore();
@@ -26,18 +27,14 @@ function App() {
         </div>
       </nav>
 
-      <header className={styles.hero}>
+      <header className={heroStyles.hero}>
         <Starfield />
         <HeroText />
       </header>
 
       <section id="about" className={styles.section}>
         <h2>About Me</h2>
-        <p>
-          I'm a developer passionate about building clean, functional
-          applications. I enjoy working across the stack and learning new
-          technologies.
-        </p>
+        <p>I’m a software engineer who enjoys solving challenging problems and is particularly fascinated by the intersection of software and human experience, from both UX and engineering perspectives. I have an unquenchable thirst for learning new patterns, technologies, and frameworks, and I enjoy sharing that knowledge with others.</p>
       </section>
 
       <section id="jobs" className={styles.section}>
