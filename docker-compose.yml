@@ -28,7 +28,7 @@ services:
       - "3001:3001"
     volumes:
       - ./api:/app
-      - /app/node_modules
+      - go-pkg-mod:/root/go/pkg/mod
     environment:
       MYSQL_HOST: mysql:3306
       MYSQL_USER: devsite_user
@@ -61,3 +61,4 @@ secrets:
 
 volumes:
   mysql_data:
+  go-pkg-mod:

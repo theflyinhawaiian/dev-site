@@ -1,27 +1,20 @@
-# ---------- base ----------
-FROM node:20-alpine AS base
-WORKDIR /app
-COPY package*.json ./
-
 # ---------- dev ----------
-FROM base AS dev
-RUN npm install
-COPY . .
+FROM golang:1.25 AS dev
+WORKDIR /app
+RUN go install github.com/air-verse/air@latest
 EXPOSE 3001
-ENV CHOKIDAR_USEPOLLING=1
-CMD ["npm", "run", "server"]
+CMD ["air"]
 
 # ---------- build ----------
-FROM base AS build
-RUN npm install
-COPY . .
-RUN npm run build
+FROM golang:1.25-alpine AS build
+WORKDIR /app
+COPY go.mod ./
+COPY *.go ./
+RUN go mod tidy && go build -o server .
 
 # ---------- prod ----------
-FROM node:20-alpine AS prod
+FROM alpine:3.19 AS prod
 WORKDIR /app
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/package*.json ./
-RUN npm install --omit=dev
+COPY --from=build /app/server .
 EXPOSE 3001
-CMD ["node", "dist/server.js"]
+CMD ["./server"]
